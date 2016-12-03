@@ -43,8 +43,8 @@ const router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
   let token;
-  if (req.cookies.access_token) {
-    token = req.cookies.access_token;
+  if (req.cookies.accessToken) {
+    token = req.cookies.accessToken;
   }
   if (req.get('X-Access-Token')) {
     token = req.get('X-Access-Token');
