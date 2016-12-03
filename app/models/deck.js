@@ -9,7 +9,9 @@ const DeckSchema = new Schema({
     back: String
   }],
   author: String,
-  userId: { type: ObjectId, ref: 'User' }
+  userId: { type: ObjectId, ref: 'User' },
+  createdAt: { type: Date, default: Date.now },
+  tags: [String]
 });
 
 module.exports = mongoose.model('Deck', DeckSchema);
