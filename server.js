@@ -44,12 +44,11 @@ const router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
   let token;
-  const cookies = new Cookies(req, res);
-  const accessToken = cookies.get('accessToken');
+  // const cookies = new Cookies(req, res);
+  // const accessToken = cookies.get('accessToken');
   if (accessToken) {
-  	token = accessToken;
-    // token = req.cookies.accessToken;
-
+  	// token = accessToken;
+    token = req.cookies.accessToken;
     console.log(token);
   }
   if (req.get('X-Access-Token')) {
@@ -61,7 +60,7 @@ router.use(function(req, res, next) {
     .populate('userId')
     .then((accessToken) => {
       if (accessToken) return Promise.resolve(accessToken.userId);
-      res.clearCookie('access_token', { path: '/' });
+      res.clearCookie('accessToken', { path: '/' });
       return Promise.resolve();
     })
     .then((user) => {
@@ -69,15 +68,15 @@ router.use(function(req, res, next) {
         next();
         return;
       }
-      if (req.cookies.access_token !== token) {
-        res.cookie('access_token', token);
+      if (req.cookies.accessToken !== token) {
+        res.cookie('accessToken', token);
       }
       user.save();
       req.token = token;
       req.user = user;
       next();
     }).catch((err) => {
-      res.clearCookie('access_token', { path: '/' });
+      res.clearCookie('accessToken', { path: '/' });
       res.status(403).send(err.message);
     });
   } else {
