@@ -46,7 +46,7 @@ router.use(function(req, res, next) {
   let token;
   // const cookies = new Cookies(req, res);
   // const accessToken = cookies.get('accessToken');
-  if (accessToken) {
+  if (req.cookies.accessToken) {
   	// token = accessToken;
     token = req.cookies.accessToken;
     console.log(token);
