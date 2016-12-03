@@ -3,12 +3,13 @@
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/scotch-io/node-token-authentication"
+    "url": "git://github.com/trus-sangwarn/social-flash-card-api"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "npm run start"
   },
-  "author": "Chris Sevilleja <scotch.io>",
+  "author": "Trus Sangwarn",
   "license": "MIT",
   "dependencies": {
     "body-parser": "~1.0.1",
