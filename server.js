@@ -22,7 +22,8 @@ const port = process.env.PORT || 3000; // set our port
 
 const mongoose   = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/social_flash_card'); // connect to our database
+// mongoose.connect('mongodb://localhost:27017/social_flash_card'); // connect to our database
+mongoose.connect('mongodb://test:1234@ds119618.mlab.com:19618/heroku_bgjmjc45');
 const Deck = require('./app/models/deck');
 const User = require('./app/models/user');
 const AccessToken = require('./app/models/access-token');
@@ -74,7 +75,7 @@ router.use(function(req, res, next) {
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });	
+	res.send({ message: 'Hello!' });
 });
 
 router.post('/login', (req, res) => {
