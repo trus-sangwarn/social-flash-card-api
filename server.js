@@ -9,6 +9,7 @@ const randomstring = require('randomstring');
 const app        = express();
 const morgan     = require('morgan');
 const cookieParser = require('cookie-parser');
+const Cookies = require('cookies');
 
 // configure app
 app.use(morgan('dev')); // log requests to the console
@@ -31,7 +32,7 @@ const AccessToken = require('./app/models/access-token');
 app.all("/api/*", (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   return next();
 });
 // ROUTES FOR OUR API
@@ -43,8 +44,13 @@ const router = express.Router();
 // middleware to use for all requests
 router.use(function(req, res, next) {
   let token;
-  if (req.cookies.accessToken) {
-    token = req.cookies.accessToken;
+  const cookies = new Cookies(req, res);
+  const accessToken = cookies.get('accessToken');
+  if (accessToken) {
+  	token = accessToken;
+    // token = req.cookies.accessToken;
+
+    console.log(token);
   }
   if (req.get('X-Access-Token')) {
     token = req.get('X-Access-Token');
